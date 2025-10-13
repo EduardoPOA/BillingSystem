@@ -67,11 +67,12 @@ async function processarPagamentos(clientId) {
     hoje.setHours(0, 0, 0, 0);
     
     for (const aluno of alunos) {
-      const nome = aluno.Nome || aluno.nome;
-      const telefone = aluno.Telefone || aluno.telefone;
-      const dataVenc = aluno.Data_Vencimento || aluno.data_vencimento;
-      const valor = aluno.Valor || aluno.valor;
-      const status = aluno.Status_Pagamento || aluno.status_pagamento;
+      // Adaptar aos nomes reais da planilha
+      const nome = aluno.Nome || aluno.nome || aluno.Aluno || aluno.aluno;
+      const telefone = aluno.Telefone || aluno.telefone || aluno.Celular || aluno.celular;
+      const dataVenc = aluno.Data_Vencimento || aluno.data_vencimento || aluno.Vencimento || aluno.vencimento;
+      const valor = aluno.Valor || aluno.valor || '0';
+      const status = aluno.Status_Pagamento || aluno.status_pagamento || 'Pendente';
       
       if (!nome || !telefone || !dataVenc || status === 'Pago') continue;
       
@@ -378,7 +379,7 @@ app.get('/', (req, res) => {
       <input type="text" id="sheetUrl" placeholder="https://docs.google.com/spreadsheets/d/...">
       
       <label style="margin-top:15px;">💳 Sua Chave PIX:</label>
-      <input type="text" id="chavePix" placeholder="email@pix.com, telefone ou CPF">
+      <input type="text" id="chavePix" placeholder="email@pix.com ou CPF">
       
       <button class="btn" onclick="salvarConfig()">✅ Ativar Sistema</button>
     </div>
